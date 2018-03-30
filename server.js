@@ -14,11 +14,11 @@ app.use((req, res, next) => {
     var log = `${now}: ${req.method} ${req.url}`;
     console.log(log);
     fs.appendFileSync('server.log', log + '\n', (err) => {
-        if(err) {
+        if (err) {
             console.log('Unable to append to server.log.');
         }
     });
-  next();
+    next();
 });
 
 // app.use((req, res, next) => {
@@ -32,31 +32,27 @@ hbs.registerHelper('getCurrentYear', () => {
 });
 
 hbs.registerHelper('screamIt', (text) => {
-   return text.toUpperCase();
+    return text.toUpperCase();
 });
 
 app.get('/', (req, res) => {
-res.send({
-    name: 'Stone',
-    likes: [
-       'Biking',
-       'Cities' 
-    ]
-})
-});
-
-app.get('/home', (req, res) => {
     res.render('home.hbs', {
         pageTitle: 'Home Page',
         welcomeMessage: 'Welcome to my website'
     });
-  });
+});
+app.get('/projects', (req, res) => {
+    res.render('projects.hbs', {
+        pageTitle: 'Projects Page',
+        welcomeMessage: 'Welcome to my website'
+    });
+});
 
 app.get('/about', (req, res) => {
-  res.render('about.hbs', {
-      pageTitle: 'About Page',
-      welcomeMessage: 'Welcome to my website'
-  });
+    res.render('about.hbs', {
+        pageTitle: 'About Page',
+        welcomeMessage: 'Welcome to my website'
+    });
 });
 
 app.listen(port, () => {
